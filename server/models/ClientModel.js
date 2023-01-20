@@ -3,6 +3,7 @@ import { DataTypes } from "sequelize";
 import { db } from "../database/db.js";
 import { Broker } from "./BrokerModel.js";
 import { User } from "./UserModel.js";
+import { Contract } from "./ContractModel.js";
 
 const Client = db.define("Client",{
   id:{
@@ -27,11 +28,11 @@ const Client = db.define("Client",{
     allowNull: false,
   },
   birthDate:{
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   entryDate:{
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   gender:{
@@ -64,14 +65,14 @@ const Client = db.define("Client",{
       key: "id",
     },
   },
-  // idContract:{
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references:{
-  //     model: User,
-  //     key: "id",
-  //   },
-  // },
+  idContract:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references:{
+      model: Contract,
+      key: "id",
+    },
+  },
   address:{
     type: DataTypes.STRING(150),
   },

@@ -34,14 +34,14 @@ const Broker = db.define("Broker",{
     allowNull: false,
   },
   birthDate:{
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   profilePhoto:{
     type: DataTypes.STRING(2083),
   },
   entryDate:{
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   gender:{

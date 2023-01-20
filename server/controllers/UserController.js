@@ -1,5 +1,6 @@
 
 import {User} from "../models/UserModel.js";
+import { getRandom } from "../utils/toolsFunctions.js";
 
 const getAllUsers = async(req,res)=>{
   try{
@@ -105,16 +106,16 @@ const deleteUser = async(req,res)=>{
 
 const createManyUsers = async(req, res)=>{
   const {n} = req.params;
-  const userNames = ["Pedro Camejo","Juan Miguel","Miguel Carlos","Andrea Gabriela","Gabriela Fuenmayor","Maria Luisa","Ana Carolina"];
+  const userNames = ["UsuaLine","Brokline02","Jose45JP","Rpalmar84","Gabriel4512","PerezL78","JuanA78"];
   const passwords = ["aadadasd651a63s5ddasd","12asdas1d35a13ds3sdad","sasdasd51as56a1dsdf345","ds321651asdf12aasdasdasd"];
   const types= ["Asegurado", "Corredor", "Administrador"];
   const emails= ["roberto.palmar.c@gmail.com","verguita@gmail.com","prueba@gmail.com","otroemail@hotmail.com","andresfmontenegrog@gmail.com"];
   let userName, password, type, email;
   for(let x=0;x<n;x++){
-    userName = userNames[Math.floor(Math.random() * userNames.length)];
-    password = passwords[Math.floor(Math.random() * passwords.length)];
-    type = types[Math.floor(Math.random() * types.length)];
-    email = emails[Math.floor(Math.random() * emails.length)];
+    userName = getRandom(userNames);
+    password = getRandom(passwords);
+    type = getRandom(types);
+    email = getRandom(emails);
     try{
       await User.create({email, userName, password, type});
     }catch(error){

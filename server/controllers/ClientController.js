@@ -1,5 +1,6 @@
 
 import {Client} from "../models/ClientModel.js";
+import { getRandom } from "../utils/toolsFunctions.js";
 
 const getAllClients = async(req,res)=>{
   try{
@@ -98,7 +99,7 @@ const updateClient = async(req,res)=>{
   const {id} = req.params;
   try{
     await Client.update({
-      firstName,
+      firstName, 
       lastName,
       companyName,
       clientType,
@@ -135,30 +136,53 @@ const deleteClient = async(req,res)=>{
 }
 
 const createManyClients = async(req, res)=>{
-  // const {n} = req.params;
-  // const ClientNames = ["Pedro Camejo","Juan Miguel","Miguel Carlos","Andrea Gabriela","Gabriela Fuenmayor","Maria Luisa","Ana Carolina"];
-  // const passwords = ["aadadasd651a63s5ddasd","12asdas1d35a13ds3sdad","sasdasd51as56a1dsdf345","ds321651asdf12aasdasdasd"];
-  // const types= ["Asegurado", "Corredor", "Administrador"];
-  // const emails= ["roberto.palmar.c@gmail.com","verguita@gmail.com","prueba@gmail.com","otroemail@hotmail.com","andresfmontenegrog@gmail.com"];
-  // let ClientName, password, type, email;
-  // for(let x=0;x<n;x++){
-  //   ClientName = ClientNames[Math.floor(Math.random() * ClientNames.length)];
-  //   password = passwords[Math.floor(Math.random() * passwords.length)];
-  //   type = types[Math.floor(Math.random() * types.length)];
-  //   email = emails[Math.floor(Math.random() * emails.length)];
-  //   try{
-  //     await Client.create({email, ClientName, password, type});
-  //   }catch(error){
-  //     res.json({message: error.message});
-  //   }
-  // }
-  // res.json({message: "Clientes Creados"});
+  const {n} = req.params;
+  const firstNames = ["Roberto","Maria","Carlo","Andrea","Ana","Jose","Miguel"];
+  const lastNames = ["Palmar","Fuenmayor","Molero","Montenegro","Perez","Gonzales"];
+  const clientTypes= ["NATURAL","JURIDICO"];
+  const birthDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
+  const entryDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
+  const genders = ["M","F"];
+  const idCardRifs = ["V28171143","V8523541","V45845235","V74589632","V7772258","V7775842","V28171143"];
+  const phones = ["04164524515","04245485652","02614584526","04248598578","04265368974"];
+  let firstName, lastName, clientType, birthDate, entryDate, gender, idCardRif, phone, idBroker, idUser, idContract;
+  for(let x=0;x<n;x++){
+    firstName = getRandom(firstNames) 
+    lastName = getRandom(lastNames)
+    clientType = getRandom(clientTypes)
+    birthDate = getRandom(birthDates)
+    entryDate = getRandom(entryDates)
+    gender = getRandom(genders)
+    idCardRif = getRandom(idCardRifs)
+    phone = getRandom(phones)
+    idBroker = 1;
+    idUser = 1;
+    idContract = null;
+    try{
+      await Client.create({
+        firstName, 
+        lastName,
+        clientType,
+        birthDate,
+        entryDate,
+        gender,
+        idCardRif,
+        phone,
+        idBroker,
+        idUser,
+        idContract,
+      });
+    }catch(error){
+      res.json({message: error.message});
+    }
+  }
+  res.json({message: "Clientes Creados"});
 }
 
 export {
   getAllClients,
-  getClientById,
   getClient,
+  getClientById,
   createClient,
   createManyClients,
   updateClient,

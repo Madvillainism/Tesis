@@ -1,5 +1,6 @@
 
 import {Broker} from "../models/BrokerModel.js";
+import { getRandom } from "../utils/toolsFunctions.js";
 
 const getAllBrokers = async(req,res)=>{
   try{
@@ -127,7 +128,7 @@ const createManyBrokers = async(req, res)=>{
   const idCards = ["V28171143","V8523541","V45845235","V74589632","V7772258","V7775842","V28171143"];
   const birthDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
   const entryDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
-  const genders = ["Male","Female"];
+  const genders = ["M","F"];
   let firstName, lastName, phone, email, idCard, birthDate, entryDate, gender, idUser;
   for(let x=0;x<n;x++){
     firstName = getRandom(fisrtNames);
@@ -138,18 +139,14 @@ const createManyBrokers = async(req, res)=>{
     birthDate = getRandom(birthDates);
     entryDate = getRandom(entryDates);
     gender = getRandom(genders);
-    idUser = x+1;
+    idUser = 1;
     try{
       await Broker.create({firstName, lastName, phone, email, idCard, birthDate, entryDate, gender, idUser});
     }catch(error){
       res.json({message: error.message});
     }
   }
-  res.json({message: "Corredor Creados"});
-}
-
-const getRandom = (array)=>{
-  return array[Math.floor(Math.random() * array.length)];
+  res.json({message: "Corredores Creados"});
 }
 
 export {

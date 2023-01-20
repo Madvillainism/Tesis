@@ -4,9 +4,11 @@ import axios from "axios";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import "./App.css";
 
+//CORREGIR ORDEN DE PARAMETROS EN FUNCION UPDATE
 // HACER FORM GRANDE PARA INSERTAR
 //PROBAR EL RESTO DE FUNCIONES DE LOS OTROS MODELOS
 function App() {
+  //USER FUNCTIONS
   const { data, loading, error } = useFetch("http://localhost:5000/user");
 
   const [name, setName] = useState("");
@@ -40,6 +42,12 @@ function App() {
       })
       .then((res) => console.log(res));
   };
+
+  //CLIENT FUNCTIONS
+
+  const { data: client, error: clientError } = useFetch(
+    "http://localhost:5000/client"
+  );
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -95,7 +103,7 @@ function App() {
                 <Form.Select
                   aria-label="Types"
                   onChange={(e) => {
-                    setPass(e.target.value);
+                    setType(e.target.value);
                   }}
                 >
                   <option value="Admin">ADMIN</option>
@@ -123,7 +131,7 @@ function App() {
           <h2>Boton de Pruebas</h2>
           <button
             onClick={() => {
-              console.log(data);
+              console.log(client);
             }}
           >
             GET DATA

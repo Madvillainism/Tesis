@@ -13,7 +13,7 @@ const db = new Sequelize("insuredb","root","", {
 const conectDB = async()=>{
   try{
     await db.authenticate();
-    await db.sync();
+    await db.sync({});
     console.log("Se ha ingresado a la BDD satisfactoriamente");
   }catch(error){
     console.log("Se ha presentado un error al ingresar a la BDD");
