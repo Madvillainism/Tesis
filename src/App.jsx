@@ -3,13 +3,14 @@ import useFetch from "../client/useFetch";
 import axios from "axios";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import "./App.css";
+import User from "../client/User";
 
-//CORREGIR ORDEN DE PARAMETROS EN FUNCION UPDATE
 // HACER FORM GRANDE PARA INSERTAR
 //PROBAR EL RESTO DE FUNCIONES DE LOS OTROS MODELOS
 function App() {
   //USER FUNCTIONS
-  const { data, loading, error } = useFetch("http://localhost:5000/user");
+
+  /*const { data: usuario } = useFetch("http://localhost:5000/user");*/
 
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
@@ -17,20 +18,20 @@ function App() {
   const [type, setType] = useState("");
   const [num, setNum] = useState(0);
 
-  const sendUser = () => {
+  /*const sendUser = () => {
     axios
       .post("http://localhost:5000/user", {
         firstName: name,
         phone: phone,
       })
       .then((res) => console.log(res));
-  };
+  };*/
 
-  const delUser = () => {
+  /*const delUser = () => {
     axios
       .delete(`http://localhost:5000/user/${num}`)
       .then((res) => console.log(res));
-  };
+  };*/
 
   const actUser = () => {
     axios
@@ -49,14 +50,14 @@ function App() {
     "http://localhost:5000/client"
   );
 
+  const { usuario: prueba } = User();
+
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(name, pass, mail, type);
-    actUser();
+    /*console.log(name, pass, mail, type);*/
+    console.log(prueba);
   };
 
-  if (loading) return <h1>CARGANDO</h1>;
-  if (error) console.log(error);
   return (
     <>
       <div className="App">
@@ -131,7 +132,7 @@ function App() {
           <h2>Boton de Pruebas</h2>
           <button
             onClick={() => {
-              console.log(client);
+              console.log(prueba);
             }}
           >
             GET DATA
