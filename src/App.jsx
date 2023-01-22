@@ -16,16 +16,18 @@ function App() {
   const [pass, setPass] = useState("");
   const [mail, setMail] = useState("");
   const [type, setType] = useState("");
+  const [atr, setAtr] = useState("");
+  const [value, setValue] = useState("");
   const [num, setNum] = useState(0);
 
   /*const sendUser = () => {
     axios
       .post("http://localhost:5000/user", {
         firstName: name,
-        phone: phone,
+        phone: pass,
       })
       .then((res) => console.log(res));
-  };*/
+  }*/
 
   /*const delUser = () => {
     axios
@@ -51,11 +53,12 @@ function App() {
   );
 
   const { usuario: prueba } = User();
+  const prueba2 = User();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     /*console.log(name, pass, mail, type);*/
-    console.log(prueba);
+    prueba2.filterUser(atr, value);
   };
 
   return (
@@ -123,6 +126,29 @@ function App() {
                   }}
                 ></Form.Control>
               </Form.Group>
+              <h2>PARAMETERS FOR FILTERING</h2>
+              <Form.Group className="mb-3" controlId="formBasicAtr">
+                <Form.Label>Attribute</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="No. of Contract"
+                  onChange={(e) => {
+                    setAtr(e.target.value);
+                  }}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicValue">
+                <Form.Label>value</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="1234"
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                />
+              </Form.Group>
+
               <Button variant="primary" type="submit">
                 DO TESTS
               </Button>

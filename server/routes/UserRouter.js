@@ -1,6 +1,5 @@
-
 import express from "express";
-import { 
+import {
   getAllUsers,
   createUser,
   getUser,
@@ -20,4 +19,4 @@ router.delete("/:id", deleteUser);
 
 router.get("/many/:n", createManyUsers);
 
-export {router};
+export { router };
