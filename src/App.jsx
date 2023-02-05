@@ -4,9 +4,14 @@ import axios from "axios";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import "./App.css";
 import User from "../client/User";
+import Client from "../Client/Client";
+import Broker from "../client/Broker";
 
 // HACER FORM GRANDE PARA INSERTAR
-//PROBAR EL RESTO DE FUNCIONES DE LOS OTROS MODELOS
+//PROBAR YUP PARA VALIDAR
+/* HACER ROUTER A OTRO ARCHIVO CON FORMULARIO DE
+OTROS MODELOS (CLiente y broker next)*/
+
 function App() {
   //USER FUNCTIONS
 
@@ -16,6 +21,7 @@ function App() {
   const [pass, setPass] = useState("");
   const [mail, setMail] = useState("");
   const [type, setType] = useState("");
+  const [man, setMan] = useState(0);
   const [atr, setAtr] = useState("");
   const [value, setValue] = useState("");
   const [num, setNum] = useState(0);
@@ -29,37 +35,17 @@ function App() {
       .then((res) => console.log(res));
   }*/
 
-  /*const delUser = () => {
-    axios
-      .delete(`http://localhost:5000/user/${num}`)
-      .then((res) => console.log(res));
-  };*/
-
-  const actUser = () => {
-    axios
-      .put(`http://localhost:5000/user/${num}`, {
-        email: mail,
-        userName: name,
-        password: pass,
-        type: type,
-      })
-      .then((res) => console.log(res));
-  };
-
-  //CLIENT FUNCTIONS
-
-  const { data: client, error: clientError } = useFetch(
-    "http://localhost:5000/client"
-  );
-
-  const { usuario: prueba } = User();
+  const { broker: bro } = Broker();
+  const prueba3 = Broker();
   const prueba2 = User();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     /*console.log(name, pass, mail, type);*/
-    prueba2.filterUser(atr, value);
+    prueba3.filterBroker(atr, value);
   };
+
+  //BROKER Y CLIENT DEBERIA TENER RESTRICCION DE TYPE CON USER
 
   return (
     <>
@@ -149,6 +135,19 @@ function App() {
                 />
               </Form.Group>
 
+              <h3> ID USER TEST</h3>
+
+              <button
+                onClick={() => {
+                  for (let i = 0; i < bro.length; i++) {
+                    console.log(
+                      "name: " + bro[i].firstName + " idUser: " + bro[i].idUser
+                    );
+                  }
+                }}
+              >
+                LOL
+              </button>
               <Button variant="primary" type="submit">
                 DO TESTS
               </Button>
@@ -158,7 +157,12 @@ function App() {
           <h2>Boton de Pruebas</h2>
           <button
             onClick={() => {
-              console.log(prueba);
+              const jaja = () => {
+                for (let i = 0; i < bro.length; i++) {
+                  console.log(bro[i].idUser);
+                }
+              };
+              jaja();
             }}
           >
             GET DATA
