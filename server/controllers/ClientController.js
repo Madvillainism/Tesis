@@ -156,7 +156,6 @@ const createManyClients = async(req, res)=>{
     idCardRif = getRandom(idCardRifs)
     phone = getRandom(phones)
     idBroker = 1;
-    idUser = 1;
     idContract = null;
     try{
       await Client.create({

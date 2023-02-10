@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`Broker` (
   `profilePhoto` VARCHAR(2083) NULL,
   `entryDate` DATE NOT NULL,
   `gender` ENUM("M", "F") NULL,
-  `idUser` INT NOT NULL,
-  PRIMARY KEY (`id`, `idUser`),
+  `idUser` INT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_Corredor_Usuario1_idx` (`idUser` ASC) ,
   CONSTRAINT `fk_Corredor_Usuario1`
     FOREIGN KEY (`idUser`)
@@ -89,6 +89,17 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `InsureDB`.`AdjPack`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `InsureDB`.`AdjPack` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` ENUM("CONTRACT", "CASUALTY", "PAYREPORT") NOT NULL,
+  `location` VARCHAR(2083) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `InsureDB`.`Contract`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `InsureDB`.`Contract` (
@@ -101,9 +112,11 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`Contract` (
   `contractType` ENUM('PARTICULAR', 'COLECTIVO') NOT NULL,
   `idPolicy` INT NOT NULL,
   `idMiddle` INT NULL,
+  `idAdjPack` INT NULL,
   PRIMARY KEY (`id`, `nContract`, `idPolicy`),
   INDEX `fk_Contrato_Poliza1_idx` (`idPolicy` ASC) ,
   INDEX `fk_Contrato_Corredor1_idx` (`idMiddle` ASC) ,
+  INDEX `fk_Contract_AdjPack1_idx` (`idAdjPack` ASC) ,
   CONSTRAINT `fk_Contrato_Poliza1`
     FOREIGN KEY (`idPolicy`)
     REFERENCES `InsureDB`.`Policy` (`id`)
@@ -112,6 +125,11 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`Contract` (
   CONSTRAINT `fk_Contrato_Corredor1`
     FOREIGN KEY (`idMiddle`)
     REFERENCES `InsureDB`.`Broker` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Contract_AdjPack1`
+    FOREIGN KEY (`idAdjPack`)
+    REFERENCES `InsureDB`.`AdjPack` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -133,11 +151,11 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`Client` (
   `profilePhoto` VARCHAR(2083) NULL,
   `phone` VARCHAR(12) NOT NULL,
   `idBroker` INT NOT NULL,
-  `idUser` INT NOT NULL,
+  `idUser` INT NULL,
   `idContract` INT NULL,
   `address` VARCHAR(150) NULL,
   `town` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`, `idBroker`, `idUser`),
+  PRIMARY KEY (`id`, `idBroker`),
   INDEX `fk_Asegurado_Corredor_idx` (`idBroker` ASC) ,
   INDEX `fk_Asegurado_Usuario1_idx` (`idUser` ASC) ,
   INDEX `fk_Client_Contract1_idx` (`idContract` ASC) ,
@@ -169,11 +187,18 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`Casualty` (
   `subject` VARCHAR(45) NOT NULL,
   `description` VARCHAR(2000) NULL,
   `idContract` INT NOT NULL,
+  `idAdjPack` INT NULL,
   PRIMARY KEY (`id`, `idContract`),
   INDEX `fk_Siniestro_Contrato1_idx` (`idContract` ASC) ,
+  INDEX `fk_Casualty_AdjPack1_idx` (`idAdjPack` ASC) ,
   CONSTRAINT `fk_Siniestro_Contrato1`
     FOREIGN KEY (`idContract`)
     REFERENCES `InsureDB`.`Contract` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Casualty_AdjPack1`
+    FOREIGN KEY (`idAdjPack`)
+    REFERENCES `InsureDB`.`AdjPack` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -203,9 +228,11 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`PayReport` (
   `idContract` INT NOT NULL,
   `creationDate` DATE NOT NULL,
   `checkDate` DATE NULL,
+  `idAdjPack` INT NULL,
   PRIMARY KEY (`id`, `idTypePayment`, `idContract`),
   INDEX `fk_ReporteDePago_TipoDePago1_idx` (`idTypePayment` ASC) ,
   INDEX `fk_ReporteDePago_Contrato1_idx` (`idContract` ASC) ,
+  INDEX `fk_PayReport_AdjPack1_idx` (`idAdjPack` ASC) ,
   CONSTRAINT `fk_ReporteDePago_TipoDePago1`
     FOREIGN KEY (`idTypePayment`)
     REFERENCES `InsureDB`.`PaymentType` (`id`)
@@ -214,6 +241,11 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`PayReport` (
   CONSTRAINT `fk_ReporteDePago_Contrato1`
     FOREIGN KEY (`idContract`)
     REFERENCES `InsureDB`.`Contract` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PayReport_AdjPack1`
+    FOREIGN KEY (`idAdjPack`)
+    REFERENCES `InsureDB`.`AdjPack` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -241,17 +273,6 @@ CREATE TABLE IF NOT EXISTS `InsureDB`.`HistoricBalance` (
     REFERENCES `InsureDB`.`PayReport` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `InsureDB`.`AdjPack`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `InsureDB`.`AdjPack` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `type` ENUM("CONTACT", "CASUALTY", "PAYREPORT") NOT NULL,
-  `location` VARCHAR(2083) NOT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 

@@ -11,7 +11,7 @@ import {
 } from "../controllers/PolicyController.js";
 const router = express.Router();
 
-router.get("/", getAllPolicies)
+router.get("/", getAllPolicies);
 router.get("/:id", getPolicyById);
 router.post("/specify", getPolicy);
 router.post("/", createPolicy);

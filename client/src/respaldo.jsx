@@ -1,10 +1,7 @@
 import { useState } from "react";
-import useFetch from "../client/useFetch";
-import axios from "axios";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import "./App.css";
 import User from "../client/User";
-import Client from "../Client/Client";
 import Broker from "../client/Broker";
 
 // HACER FORM GRANDE PARA INSERTAR
@@ -139,11 +136,7 @@ function App() {
 
               <button
                 onClick={() => {
-                  for (let i = 0; i < bro.length; i++) {
-                    console.log(
-                      "name: " + bro[i].firstName + " idUser: " + bro[i].idUser
-                    );
-                  }
+                  console.log("activoski sur la piste");
                 }}
               >
                 LOL

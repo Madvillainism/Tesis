@@ -10,7 +10,7 @@ const AdjPack = db.define("AdjPack",{
     allowNull: false,
   },
   type:{
-    type: DataTypes.ENUM("CONTACT", "CASUALTY", "PAYREPORT"),
+    type: DataTypes.ENUM("CONTRACT", "CASUALTY", "PAYREPORT"),
     allowNull: false,
   },
   location:{

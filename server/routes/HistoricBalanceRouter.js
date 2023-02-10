@@ -7,7 +7,7 @@ import {
   getHistoricBalance,
   updateHistoricBalance,
   deleteHistoricBalance,
-  // createManyHistoricBalances,
+  createManyHistoricBalances,
 } from "../controllers/HistoricBalanceController.js";
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.post("/", createHistoricBalance);
 router.put("/:id", updateHistoricBalance);
 router.delete("/:id", deleteHistoricBalance);
 
-// router.get("/many/:n", createManyHistoricBalances);
+router.get("/many/:n", createManyHistoricBalances);
 
 export {router};

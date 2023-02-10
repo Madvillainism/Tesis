@@ -122,7 +122,7 @@ const createManyPayReports = async (req, res) => {
       state = getRandom(states);
       reference = getRandom(references);
       description = getRandom(descriptions);
-      idContract = 2;
+      idContract = 1;
       creationDate = getRandom(creationDates);
       checkDate = getRandom(checkDates);
     try {

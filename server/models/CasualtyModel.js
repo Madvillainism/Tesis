@@ -1,6 +1,7 @@
 
 import { DataTypes } from "sequelize";
 import { db } from "../database/db.js";
+import { AdjPack } from "./AdjPackModel.js";
 import { Contract } from "./ContractModel.js";
 
 const Casualty = db.define("Casualty",{
@@ -22,7 +23,7 @@ const Casualty = db.define("Casualty",{
     type: DataTypes.STRING(45),
     allowNull: false,
   },
-  descripction:{
+  description:{
     type: DataTypes.STRING(2000),
   },
   idContract:{
@@ -31,6 +32,14 @@ const Casualty = db.define("Casualty",{
     references:{
         model: Contract,
         key: "id",
+    }
+  },
+  idAdjPack:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references:{
+      model: AdjPack,
+      key: "id"
     }
   }
 });

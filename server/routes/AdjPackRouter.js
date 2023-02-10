@@ -7,7 +7,7 @@ import {
   getAdjPack,
   updateAdjPack,
   deleteAdjPack,
-  // createManyAdjPacks,
+  createManyAdjPacks,
 } from "../controllers/AdjPackController.js";
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.post("/", createAdjPack);
 router.put("/:id", updateAdjPack);
 router.delete("/:id", deleteAdjPack);
 
-// router.get("/many/:n", createManyAdjPacks);
+router.get("/many/:n", createManyAdjPacks);
 
 export {router};

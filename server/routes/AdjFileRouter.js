@@ -7,7 +7,7 @@ import {
   getAdjFile,
   updateAdjFile,
   deleteAdjFile,
-  // createManyAdjFiles,
+  createManyAdjFiles,
 } from "../controllers/AdjFileController.js";
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.post("/", createAdjFile);
 router.put("/:id", updateAdjFile);
 router.delete("/:id", deleteAdjFile);
 
-// router.get("/many/:n", createManyAdjFiles);
+router.get("/many/:n", createManyAdjFiles);
 
 export {router};

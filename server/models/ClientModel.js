@@ -59,7 +59,7 @@ const Client = db.define("Client",{
   },
   idUser:{
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references:{
       model: User,
       key: "id",

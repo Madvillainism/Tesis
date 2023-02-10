@@ -7,7 +7,7 @@ import {
   getCasualty,
   updateCasualty,
   deleteCasualty,
-  // createManyCasualties,
+  createManyCasualties,
 } from "../controllers/CasualtyController.js";
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.post("/", createCasualty);
 router.put("/:id", updateCasualty);
 router.delete("/:id", deleteCasualty);
 
-// router.get("/many/:n", createManyCasualties);
+router.get("/many/:n", createManyCasualties);
 
 export {router};

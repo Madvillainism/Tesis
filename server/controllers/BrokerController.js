@@ -129,7 +129,7 @@ const createManyBrokers = async(req, res)=>{
   const birthDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
   const entryDates = ["2000-08-06","2001-12-19","2002-11-15","1999-08-20","1998-02-18","2003-11-17"];
   const genders = ["M","F"];
-  let firstName, lastName, phone, email, idCard, birthDate, entryDate, gender, idUser;
+  let firstName, lastName, phone, email, idCard, birthDate, entryDate, gender;
   for(let x=0;x<n;x++){
     firstName = getRandom(fisrtNames);
     lastName = getRandom(lastNames);
@@ -139,9 +139,8 @@ const createManyBrokers = async(req, res)=>{
     birthDate = getRandom(birthDates);
     entryDate = getRandom(entryDates);
     gender = getRandom(genders);
-    idUser = 1;
     try{
-      await Broker.create({firstName, lastName, phone, email, idCard, birthDate, entryDate, gender, idUser});
+      await Broker.create({firstName, lastName, phone, email, idCard, birthDate, entryDate, gender});
     }catch(error){
       res.json({message: error.message});
     }

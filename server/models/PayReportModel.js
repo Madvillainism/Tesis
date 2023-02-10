@@ -1,6 +1,7 @@
 
 import { DataTypes } from "sequelize";
 import { db } from "../database/db.js";
+import { AdjPack } from "./AdjPackModel.js";
 import { Contract } from "./ContractModel.js";
 import { PaymentType } from "./PaymentTypeModel.js";
 
@@ -49,6 +50,14 @@ const PayReport = db.define("PayReport",{
   },
   checkDate:{
     type: DataTypes.DATEONLY,
+  },
+  idAdjPack:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references:{
+      model: AdjPack,
+      key: "id"
+    }
   }
 });
 

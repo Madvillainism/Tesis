@@ -1,6 +1,7 @@
 
 import { DataTypes } from "sequelize";
 import { db } from "../database/db.js";
+import { AdjPack } from "./AdjPackModel.js";
 import { Broker } from "./BrokerModel.js";
 import { Policy } from "./PolicyModel.js";
 
@@ -48,6 +49,14 @@ const Contract = db.define("Contract",{
     references:{
       model: Broker,
       key:"id",
+    }
+  },
+  idAdjPack:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references:{
+      model: AdjPack,
+      key: "id"
     }
   }
 });
